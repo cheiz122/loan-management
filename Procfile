@@ -1,1 +1,2 @@
-web: gunicorn loan_management.wsgi 
+web: gunicorn customer_management_app.wsgi
+
