@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Customer Management{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loan.css' %}">
+    <link rel="stylesheet" href="{% static 'css/customer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img class="logo" src="{% static 'image/logo.jpg' %}" alt="Dimalink Ventures">
+        </div>
+        <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+        <nav class="top-nav">
+            <ul class="menu">
+                <li><a href="{% url 'agent_dashboard' %}" {% if request.path == '/dashboard/' %} class="active" {% endif %}>Dashboard</a></li>
+                <li>
+                    <a href="{% url 'customer_list' %}" {% if request.path == '/customers/' %} class="active" {% endif %}>Customers</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'add_customer' %}">Add Customer</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'loan_list' %}" {% if request.path == '/loans/' %} class="active" {% endif %}>Loans</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'add_loan' %}">Add Loan</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'export_customers_csv' %}" {% if request.path == '/export/customers/' %} class="active" {% endif %}>Export Customers</a></li>
+                <li><a href="{% url 'logout' %}" {% if request.path == '/accounts/logout/' %} class="active" {% endif %}>Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-content">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        <p class="copyright">&copy; {% now "Y" %} Dimalink Ventures. All rights reserved.</p>
+    </footer>
+    <script src="{% static 'js/menu-toggle.js' %}"></script>
+</body>
+</html>

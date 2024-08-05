@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Add/Edit Loan{% endblock %}
+
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/loan.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="loan-form">
+    <h1>{% if loan.pk %}Edit Loan{% else %}Add Loan{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save-loan-btn">Save</button>
+    </form>
+</div>
+{% endblock %}
+

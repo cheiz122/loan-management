@@ -1,0 +1,108 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block title %}Customer List{% endblock %}
+
+{% block content %}
+<div class="customer-list">
+    <h1>Customer List</h1>
+
+    <!-- Active Customers Table -->
+    <h2>Active Customers</h2>
+    <table class="customer-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID Number</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Loan Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in active_customers %}
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.id_number }}</td>
+                <td>
+                    <a href="https://wa.me/{{ customer.phone }}" target="_blank" class="phone-link">{{ customer.phone }}</a>
+                </td>
+                <td>
+                    <span class="email-link">{{ customer.email }}</span>
+                    <a href="mailto:{{ customer.email }}" class="email-hidden">Send Email</a>
+                </td>
+                <td>{{ customer.location }}</td>
+                <td>{{ customer.loan_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Inactive Customers Table -->
+    <h2>Inactive Customers</h2>
+    <table class="customer-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID Number</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Loan Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in inactive_customers %}
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.id_number }}</td>
+                <td>
+                    <a href="https://wa.me/{{ customer.phone }}" target="_blank" class="phone-link">{{ customer.phone }}</a>
+                </td>
+                <td>
+                    <span class="email-link">{{ customer.email }}</span>
+                    <a href="mailto:{{ customer.email }}" class="email-hidden">Send Email</a>
+                </td>
+                <td>{{ customer.location }}</td>
+                <td>{{ customer.loan_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Overdue Loans -->
+    <h2>Overdue Loans</h2>
+    <table class="loan-table">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Loan Amount</th>
+                <th>Due Date</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in overdue_loans %}
+            <tr style="color: red;">
+                <td>{{ loan.customer.name }}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.due_date }}</td>
+                <td>{{ loan.customer.location }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add Customer Form Link or Button -->
+    <div class="add-customer-form">
+        <a href="{% url 'add_customer' %}" class="add-customer-btn">Add Customer</a>
+    </div>
+
+    <!-- Export Customers as CSV or PDF -->
+    <div class="export-customers">
+        <a href="{% url 'export_customers_csv' %}" class="export-btn">Export Customers as CSV</a>
+        <a href="{% url 'export_customers_pdf' %}" class="export-btn">Export Customers as PDF</a>
+    </div>
+</div>
+{% endblock %}

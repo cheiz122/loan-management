@@ -1,0 +1,113 @@
+/* customer.css */
+
+/* General Styles */
+.customer-list {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.customer-list h1 {
+    text-align: center;
+    color: #333;
+}
+
+.customer-table,
+.loan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.customer-table th,
+.loan-table th,
+.customer-table td,
+.loan-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.customer-table th {
+    background-color: #ffd700; /* Golden yellow color */
+    color: white;
+}
+
+.customer-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.add-customer-form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-customer-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #14bb4c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.add-customer-btn:hover {
+    background-color: #0a9935;
+}
+
+.customer-table td {
+    position: relative;
+}
+
+.customer-table td a {
+    color: #14bb4c; /* Link color */
+    text-decoration: none;
+}
+
+.customer-table td a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Optionally, if you want the email link to only show some styles on hover */
+.email-link:hover {
+    color: #0a7c40; /* Change color on hover */
+}
+
+/* Optionally, if you want the phone link to only show some styles on hover */
+.phone-link:hover {
+    color: #0a7c40; /* Change color on hover */
+}
+
+/* Show the email link on hover */
+.email-hidden {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .customer-table,
+    .loan-table {
+        font-size: 14px;
+    }
+
+    .customer-table th,
+    .loan-table th,
+    .customer-table td,
+    .loan-table td {
+        padding: 8px;
+    }
+
+    .add-customer-form,
+    .export-customers {
+        margin-top: 10px;
+    }
+
+    .add-customer-btn,
+    .export-btn {
+        display: block;
+        margin: 10px auto;
+    }
+}

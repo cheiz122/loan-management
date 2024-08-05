@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Loan Detail{% endblock %}
+
+{% block content %}
+<div class="loan-detail">
+    <h1>Loan Detail</h1>
+    <p><strong>Customer:</strong> {{ loan.customer.name }}</p>
+    <p><strong>Amount:</strong> {{ loan.amount }}</p>
+    <p><strong>Date Borrowed:</strong> {{ loan.date_borrowed }}</p>
+    <p><strong>Due Date:</strong> {{ loan.due_date }}</p>
+    <p><strong>Status:</strong> {{ loan.status }}</p>
+    <p><strong>Interest Rate:</strong> {{ loan.calculate_interest }}</p>
+    <!-- Add more details as needed -->
+</div>
+{% endblock %}

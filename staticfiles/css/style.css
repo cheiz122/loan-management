@@ -1,0 +1,72 @@
+/* base.css */
+
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #14bb4c;
+            padding: 10px 20px;
+        }
+        nav img.logo {
+            height: 60px;
+            width: auto;
+        }
+        nav ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        nav ul.menu li {
+            margin-right: 20px;
+        }
+        nav ul.menu li:last-child {
+            margin-right: 0;
+        }
+        nav ul.menu li a {
+            display: block;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        nav ul.menu li a:hover {
+            background-color: #111;
+        }
+        nav ul.menu li .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #14bb4c;
+            list-style-type: none;
+            padding: 10px;
+            margin: 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        nav ul.menu li:hover .submenu {
+            display: block;
+        }
+        nav ul.menu li .submenu li {
+            margin: 0;
+        }
+        nav ul.menu li .submenu li a {
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+        footer {
+            background-color: #14bb4c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }

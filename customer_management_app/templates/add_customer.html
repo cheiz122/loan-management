@@ -1,0 +1,16 @@
+<!-- customer_management_app/templates/add_customer.html -->
+
+{% extends "base_generic.html" %}
+
+{% block title %}Add Customer{% endblock %}
+
+{% block content %}
+<div class="add-customer">
+    <h1>Add Customer</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Customer</button>
+    </form>
+</div>
+{% endblock %}

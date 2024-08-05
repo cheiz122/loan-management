@@ -1,0 +1,245 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block title %}Loan List{% endblock %}
+
+{% block content %}
+<div class="loan-list">
+    <h1>Loan List</h1>
+
+    <!-- Add Loan Form Link or Button -->
+    <div class="add-loan-form">
+        <a href="{% url 'add_loan' %}" class="add-loan-btn">Add Loan</a>
+    </div>
+
+    <!-- Button to Send Due Reminders -->
+    <div class="send-reminders">
+        <a href="{% url 'send_due_reminders' %}" class="send-reminders-btn">Send Due Reminders</a>
+    </div>
+
+    <!-- Disbursed Loans Table -->
+    <h2>Disbursed Loans</h2>
+    <table class="loan-table">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Date Borrowed</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Interest Amount</th>
+                <th>Total to be Paid</th>
+                <th>Balance</th>
+                <th>Penalty (if overdue)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in disbursed_loans %}
+            <tr {% if loan in overdue_loans %}style="color: red;"{% endif %}>
+                <td>{{ loan.customer.name }}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.date_borrowed }}</td>
+                <td>{{ loan.due_date }}</td>
+                <td>{{ loan.status }}</td>
+                <td>{{ loan.calculate_interest|floatformat:2 }}</td>
+                <td>{{ loan.total_to_be_paid|floatformat:2 }}</td>
+                <td>{{ loan.balance|floatformat:2 }}</td>
+                <td>{{ loan.overdue_interest|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'loan_detail' loan.id %}" class="btn btn-sm btn-info">View Details</a>
+                    <a href="{% url 'add_payment' loan.id %}" class="btn btn-sm btn-success">Add Payment</a>
+                    <a href="{% url 'customer_payment_history' loan.customer.id %}" class="btn btn-sm btn-primary">View Payment Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>{{ disbursed_totals.0|floatformat:2 }}</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ disbursed_totals.3|floatformat:2 }}</strong></td>
+                <td></td>
+                <td><strong>{{ disbursed_totals.1|floatformat:2 }}</strong></td>
+                <td><strong>{{ disbursed_totals.2|floatformat:2 }}</strong></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Repaid Loans Table -->
+    <h2>Repaid Loans</h2>
+    <table class="loan-table">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Date Borrowed</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Interest Amount</th>
+                <th>Total to be Paid</th>
+                <th>Balance</th>
+                <th>Penalty (if overdue)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in repaid_loans %}
+            <tr>
+                <td>{{ loan.customer.name }}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.date_borrowed }}</td>
+                <td>{{ loan.due_date }}</td>
+                <td>{{ loan.status }}</td>
+                <td>{{ loan.calculate_interest|floatformat:2 }}</td>
+                <td>{{ loan.total_to_be_paid|floatformat:2 }}</td>
+                <td>{{ loan.balance|floatformat:2 }}</td>
+                <td>{{ loan.overdue_interest|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'loan_detail' loan.id %}" class="btn btn-sm btn-info">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>{{ repaid_totals.0|floatformat:2 }}</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ repaid_totals.3|floatformat:2 }}</strong></td>
+                <td></td>
+                <td><strong>{{ repaid_totals.1|floatformat:2 }}</strong></td>
+                <td><strong>{{ repaid_totals.2|floatformat:2 }}</strong></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pending Loans Table -->
+    <h2>Pending Loans</h2>
+    <table class="loan-table">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Date Borrowed</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Interest Amount</th>
+                <th>Total to be Paid</th>
+                <th>Balance</th>
+                <th>Penalty (if overdue)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in pending_loans %}
+            <tr>
+                <td>{{ loan.customer.name }}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.date_borrowed }}</td>
+                <td>{{ loan.due_date }}</td>
+                <td>{{ loan.status }}</td>
+                <td>{{ loan.calculate_interest|floatformat:2 }}</td>
+                <td>{{ loan.total_to_be_paid|floatformat:2 }}</td>
+                <td>{{ loan.balance|floatformat:2 }}</td>
+                <td>{{ loan.overdue_interest|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'loan_detail' loan.id %}" class="btn btn-sm btn-info">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>{{ pending_totals.0|floatformat:2 }}</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ pending_totals.3|floatformat:2 }}</strong></td>
+                <td></td>
+                <td><strong>{{ pending_totals.1|floatformat:2 }}</strong></td>
+                <td><strong>{{ pending_totals.2|floatformat:2 }}</strong></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Overdue Loans Table -->
+    <h2>Overdue Loans</h2>
+    <table class="loan-table">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Date Borrowed</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Interest Amount</th>
+                <th>Total to be Paid</th>
+                <th>Balance</th>
+                <th>Penalty (if overdue)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in overdue_loans %}
+            <tr style="color: red;">
+                <td>{{ loan.customer.name }}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.date_borrowed }}</td>
+                <td>{{ loan.due_date }}</td>
+                <td>{{ loan.status }}</td>
+                <td>{{ loan.calculate_interest|floatformat:2 }}</td>
+                <td>{{ loan.total_to_be_paid|floatformat:2 }}</td>
+                <td>{{ loan.balance|floatformat:2 }}</td>
+                <td>{{ loan.overdue_interest|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'loan_detail' loan.id %}" class="btn btn-sm btn-info">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>{{ overdue_totals.0|floatformat:2 }}</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ overdue_totals.3|floatformat:2 }}</strong></td>
+                <td></td>
+                <td><strong>{{ overdue_totals.1|floatformat:2 }}</strong></td>
+                <td><strong>{{ overdue_totals.2|floatformat:2 }}</strong></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Grand Total -->
+    <h2>Grand Total</h2>
+    <table class="loan-table">
+        <thead>
+            <tr>
+                <th>Total Amount</th>
+                <th>Total Balance</th>
+                <th>Total Overdue Interest</th>
+                <th>Total Interest</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>{{ grand_total_amount|floatformat:2 }}</strong></td>
+                <td><strong>{{ grand_total_balance|floatformat:2 }}</strong></td>
+                <td><strong>{{ grand_total_overdue_interest|floatformat:2 }}</strong></td>
+                <td><strong>{{ grand_total_interest|floatformat:2 }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Export Loans as CSV or PDF -->
+    <div class="export-loans">
+        <a href="{% url 'export_loans_csv' %}" class="export-btn">Export Loans as CSV</a>
+        <a href="{% url 'export_loans_pdf' %}" class="export-btn">Export Loans as PDF</a>
+    </div>
+</div>
+{% endblock %}

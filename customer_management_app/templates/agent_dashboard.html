@@ -1,0 +1,73 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Agent Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>Agent Dashboard</h1>
+    
+    <div class="box-container">
+        <div class="box">
+            <h2>Loan Summary</h2>
+        </div>
+        <div class="box">
+            <p>Total Loans Disbursed: {{ total_loans_disbursed_count }} (Amount: {{ total_loans_disbursed_amount|floatformat:2 }})</p>
+        </div>
+        <div class="box">
+            <p>Total Loans Repaid (Including Interest): {{ total_loans_repaid_count }} (Amount: {{ total_loans_repaid_amount|floatformat:2 }})</p>
+        </div>
+        <div class="box">
+            <p>Pending Loans: {{ pending_loans_count }}</p>
+        </div>
+        <div class="box">
+            <p>Approved Loans: {{ approved_loans_count }} (Amount: {{ approved_loans_amount|floatformat:2 }})</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>Upcoming Loans Due Soon</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Loan Amount</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in upcoming_loans_due_soon %}
+                <tr>
+                    <td>{{ loan.customer.name }}</td>
+                    <td>{{ loan.amount|floatformat:2 }}</td>
+                    <td>{{ loan.due_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="box">
+        <h2>Overdue Loans</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Loan Amount</th>
+                    <th>Due Date</th>
+                    <th>Overdue Interest</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in overdue_loans %}
+                <tr>
+                    <td>{{ loan.customer.name }}</td>
+                    <td>{{ loan.amount|floatformat:2 }}</td>
+                    <td>{{ loan.due_date }}</td>
+                    <td>{{ loan.overdue_interest|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

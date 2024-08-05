@@ -1,0 +1,27 @@
+/* Styles for Loan Detail */
+.loan-detail {
+    margin: 20px auto; /* Adjust margin as needed */
+    max-width: 600px; /* Adjust max-width as per design */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.loan-detail h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.loan-detail p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.loan-detail strong {
+    font-weight: bold;
+    color: #555;
+}
