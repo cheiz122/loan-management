@@ -17,7 +17,8 @@ ALLOWED_HOSTS = [
     '192.168.0.104',  # Your local IP address
     'localhost',
     '127.0.0.1',
-    'reasonably-master-goat.ngrok-free.app'
+    'reasonably-master-goat.ngrok-free.app',
+    'loan-management-1-d6h3.onrender.com'
     
 ]
 
